@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AprioriSelf.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,96 +13,41 @@ namespace AprioriSelf
 
         static void Main(string[] args)
         {
+            ExistingDataFromWeb existing = new ExistingDataFromWeb();
+            List<Item> AllEnrolledCourse = new List<Item>();
+            List<Transaction> AllEnrollments = new List<Transaction>();
+            List<LearnerEnroll> enrolls;
+            int courseId;
 
-            double support = 40;
-            double confidence = 60;
-            List<Transaction> AllTransactions;
-            List<Item> AllItems = new List<Item>();
+            var students = existing.Users.Where(s => s.Type == "learner").ToList();
+            foreach (User current in students)
+            {
+                enrolls = current.LearnerEnrolls.ToList();
+                if (enrolls.Count > 0)
+                {
+                    Transaction t = new Transaction();
+                    foreach(LearnerEnroll le in enrolls)
+                    {
+                        courseId = le.EnrolledCourseID;
+                        Item i = new Item();
+                        i.ID = courseId;
+                        t.Items.Add(i);
+                        if (AllEnrolledCourse.Where(s=>s.ID == courseId).FirstOrDefault() == null)
+                        {
+                            AllEnrolledCourse.Add(i);
+                        }
+                    }
+                    AllEnrollments.Add(t);
+                }
+                //Console.WriteLine("\t" + (i + 1) + ". " + users.ElementAt(i).Email + " (" + users.ElementAt(i).Type + ")");
+            }
+
+            double support = 20;
+            double confidence = 30;
+            List<Transaction> AllTransactions = AllEnrollments;
+            List<Item> AllItems = AllEnrolledCourse;
             List<Rule> RuleList = new List<Rule>();
-            
 
-            #region SettingData
-            Item it1 = new Item();
-            it1.ID = 1;
-            Item it2 = new Item();
-            it2.ID = 2;
-            Item it3 = new Item();
-            it3.ID = 3;
-            Item it4 = new Item();
-            it4.ID = 4;
-            Item it5 = new Item();
-            it5.ID = 5;
-
-            AllItems.Add(it1);
-            AllItems.Add(it2);
-            AllItems.Add(it3);
-            AllItems.Add(it4);
-            AllItems.Add(it5);
-
-            //Generating Transactions
-            Transaction t1 = new Transaction();
-            t1.ID = 10001;  
-            t1.Items.Add(it1);
-            t1.Items.Add(it3);
-            t1.Items.Add(it4);
-
-
-            Transaction t2 = new Transaction();
-            t2.ID = 10002;
-            t2.Items.Add(it2);
-            t2.Items.Add(it3);
-            t2.Items.Add(it5);
-
-            Transaction t3 = new Transaction();
-            t3.ID = 10003;
-            t3.Items.Add(it1);
-            t3.Items.Add(it2);
-            t3.Items.Add(it3);
-            t3.Items.Add(it5);
-
-            Transaction t4 = new Transaction();
-            t4.ID = 10004;
-            t4.Items.Add(it2);
-            t4.Items.Add(it5);
-
-            Transaction t5 = new Transaction();
-            t5.ID = 10003;
-            t5.Items.Add(it1);
-            t5.Items.Add(it3);
-            t5.Items.Add(it5);
-
-            //Trying Extra transactions
-
-
-            //Transaction t6 = new Transaction();
-            //t6.ID = 10003;
-            //t6.Items.Add(it1);
-            //t6.Items.Add(it3);
-            //t6.Items.Add(it5);
-
-            //Transaction t7 = new Transaction();
-            //t7.ID = 10003;
-            //t7.Items.Add(it1);
-            //t7.Items.Add(it3);
-            //t7.Items.Add(it5);
-
-            //Transaction t8 = new Transaction();
-            //t8.ID = 10003;
-            //t8.Items.Add(it1);
-            //t8.Items.Add(it3);
-            //t8.Items.Add(it5);
-
-            ///
-            AllTransactions = new List<Transaction>();
-            AllTransactions.Add(t1);
-            AllTransactions.Add(t2);
-            AllTransactions.Add(t3);
-            AllTransactions.Add(t4);
-            AllTransactions.Add(t5);
-            //AllTransactions.Add(t6);
-            //AllTransactions.Add(t7);
-            //AllTransactions.Add(t8);
-            #endregion
 
             Console.WriteLine("Given Data: ");
             foreach (Transaction t in AllTransactions)
@@ -151,20 +98,51 @@ namespace AprioriSelf
                 }
                 //RuleList = RuleList;
             }
+
+            RuleList = RuleList;
             Console.WriteLine("We have " + RuleList.Count + " rules: ");
+            OfferedCours oc;
+            var rs = existing.Rules.ToList();
+            existing.Rules.RemoveRange(rs);
             foreach (Rule r in RuleList)
             {
-                foreach(Item i in r.Driver)
+                Models.Rule ruleForDb = new Models.Rule();
+                List<int> DriversID = new List<int>();
+                foreach (Item i in r.Driver)
                 {
-                    Console.Write(i.ID + " ");
+                    DriversID.Add(i.ID);
+                }
+                List<int> IndicatesID = new List<int>();
+                foreach (Item i in r.Indicates)
+                {
+                    IndicatesID.Add(i.ID);
+                }
+                ruleForDb.Confidence = Math.Round(r.confidence, 2);
+                ruleForDb.Drivers = JsonConvert.SerializeObject(DriversID);
+                ruleForDb.Indicates = JsonConvert.SerializeObject(IndicatesID);
+                existing.Rules.Add(ruleForDb);
+                //Console.WriteLine("(connfidence: {0}%)", Math.Round(r.confidence,2));
+            }
+            existing.SaveChanges();
+
+
+            var rulesInDb = existing.Rules.ToList();
+            foreach(Models.Rule r in rulesInDb.OrderByDescending(s=>s.Confidence).ToList())
+            {
+                List<int> d = JsonConvert.DeserializeObject<List<int>>(r.Drivers);
+                foreach (int i in d)
+                {
+                    Console.Write(i + " ");
                 }
                 Console.Write("->");
-                foreach(Item i in r.Indicates)
+                d = JsonConvert.DeserializeObject<List<int>>(r.Indicates);
+                foreach (int i in d)
                 {
-                    Console.Write(i.ID + " ");
+                    Console.Write(i + " ");
                 }
-                Console.WriteLine("(connfidence: {0}%)", Math.Round(r.confidence,2));
+                Console.WriteLine("(connfidence: {0}%)", r.Confidence);
             }
+
             Console.ReadLine();
 
         }

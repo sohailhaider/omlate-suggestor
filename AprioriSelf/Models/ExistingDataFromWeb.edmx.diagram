@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3355fc41b5504132b03ee3fc5e685e84" Name="Diagram1">
+        <EntityTypeShape EntityType="omlateDBModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.AssessmentEvaluation" Width="1.5" PointX="8.5" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.Assessment" Width="1.5" PointX="5.25" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.AssessmentSubmission" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.CourseCategory" Width="1.5" PointX="1.5" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.Cours" Width="1.5" PointX="0.75" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.Extra" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.IsAttempted" Width="1.5" PointX="6" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.LearnerEnroll" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.LectureResource" Width="1.5" PointX="7.5" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.LectureSchedule" Width="1.5" PointX="5.25" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.OfferedCours" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.QuizAttempt" Width="1.5" PointX="8.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.QuizQuestion" Width="1.5" PointX="6" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.Quiz" Width="1.5" PointX="3.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.Rule" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.sysdiagram" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="omlateDBModel.User" Width="1.5" PointX="0.75" PointY="10.375" IsExpanded="true" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_AssessmentEvaluations_dbo_Assessments_AssessmentID" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_AssessmentEvaluations_dbo_LearnerEnrolls_LearnerEnrollID" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_Assessments_dbo_OfferedCourses_OfferedCourse_OfferedCourseID" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_AssessmentSubmissions_dbo_Assessments_AssessmentId" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_AssessmentSubmissions_dbo_Users_Learner_Username" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_Courses_dbo_CourseCategories_CourseCategoryID" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_OfferedCourses_dbo_Courses_Course_CourseCode" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_IsAttempteds_dbo_Quizs_QuizID" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_IsAttempteds_dbo_Users_Username" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_LearnerEnrolls_dbo_OfferedCourses_CourseEnrolled_OfferedCourseID" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_LearnerEnrolls_dbo_Users_EnrolledLearner_Username" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_LectureResources_dbo_LectureSchedules_LectureScheduleID" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_LectureSchedules_dbo_OfferedCourses_OfferedCourseID" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_OfferedCourses_dbo_Users_OfferdBy_Username" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_QuizAttempts_dbo_OfferedCourses_OfferedCourseID" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_QuizAttempts_dbo_Quizs_QuizID" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_QuizAttempts_dbo_Users_Learner_Username" ManuallyRouted="false" />
+        <AssociationConnector Association="omlateDBModel.FK_dbo_QuizQuestions_dbo_Quizs_QuizID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

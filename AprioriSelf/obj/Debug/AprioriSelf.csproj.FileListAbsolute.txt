@@ -4,3 +4,9 @@ c:\users\sohail haider\documents\visual studio 2015\Projects\AprioriSelf\Apriori
 c:\users\sohail haider\documents\visual studio 2015\Projects\AprioriSelf\AprioriSelf\obj\Debug\AprioriSelf.csprojResolveAssemblyReference.cache
 c:\users\sohail haider\documents\visual studio 2015\Projects\AprioriSelf\AprioriSelf\obj\Debug\AprioriSelf.exe
 c:\users\sohail haider\documents\visual studio 2015\Projects\AprioriSelf\AprioriSelf\obj\Debug\AprioriSelf.pdb
+C:\Users\Sohail Haider\Documents\Visual Studio 2015\Projects\AprioriSelf\AprioriSelf\bin\Debug\EntityFramework.dll
+C:\Users\Sohail Haider\Documents\Visual Studio 2015\Projects\AprioriSelf\AprioriSelf\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Sohail Haider\Documents\Visual Studio 2015\Projects\AprioriSelf\AprioriSelf\bin\Debug\EntityFramework.xml
+C:\Users\Sohail Haider\Documents\Visual Studio 2015\Projects\AprioriSelf\AprioriSelf\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Sohail Haider\Documents\Visual Studio 2015\Projects\AprioriSelf\AprioriSelf\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Sohail Haider\Documents\Visual Studio 2015\Projects\AprioriSelf\AprioriSelf\bin\Debug\Newtonsoft.Json.xml

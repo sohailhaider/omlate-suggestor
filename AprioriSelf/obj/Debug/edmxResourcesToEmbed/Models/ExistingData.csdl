@@ -1,0 +1,596 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="omlateDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AssessmentEvaluation">
+    <Key>
+      <PropertyRef Name="AssessmentID" />
+      <PropertyRef Name="LearnerEnrollID" />
+    </Key>
+    <Property Name="AssessmentID" Type="Int32" Nullable="false" />
+    <Property Name="LearnerEnrollID" Type="Int32" Nullable="false" />
+    <Property Name="Points" Type="Int32" Nullable="false" />
+    <Property Name="Feedback" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EvaluationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="File" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Assessment" Relationship="Self.FK_dbo_AssessmentEvaluations_dbo_Assessments_AssessmentID" FromRole="AssessmentEvaluations" ToRole="Assessments" />
+    <NavigationProperty Name="LearnerEnroll" Relationship="Self.FK_dbo_AssessmentEvaluations_dbo_LearnerEnrolls_LearnerEnrollID" FromRole="AssessmentEvaluations" ToRole="LearnerEnrolls" />
+  </EntityType>
+  <EntityType Name="Assessment">
+    <Key>
+      <PropertyRef Name="AssessmentID" />
+    </Key>
+    <Property Name="AssessmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AssessmentTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Points" Type="Int32" Nullable="false" />
+    <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="OfferedCourse_OfferedCourseID" Type="Int32" />
+    <Property Name="FilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AssessmentEvaluations" Relationship="Self.FK_dbo_AssessmentEvaluations_dbo_Assessments_AssessmentID" FromRole="Assessments" ToRole="AssessmentEvaluations" />
+    <NavigationProperty Name="OfferedCours" Relationship="Self.FK_dbo_Assessments_dbo_OfferedCourses_OfferedCourse_OfferedCourseID" FromRole="Assessments" ToRole="OfferedCourses" />
+    <NavigationProperty Name="AssessmentSubmissions" Relationship="Self.FK_dbo_AssessmentSubmissions_dbo_Assessments_AssessmentId" FromRole="Assessments" ToRole="AssessmentSubmissions" />
+  </EntityType>
+  <EntityType Name="AssessmentSubmission">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AssessmentId" Type="Int32" Nullable="false" />
+    <Property Name="LearnerId" Type="Int32" Nullable="false" />
+    <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SubmissionTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Learner_Username" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Assessment" Relationship="Self.FK_dbo_AssessmentSubmissions_dbo_Assessments_AssessmentId" FromRole="AssessmentSubmissions" ToRole="Assessments" />
+    <NavigationProperty Name="User" Relationship="Self.FK_dbo_AssessmentSubmissions_dbo_Users_Learner_Username" FromRole="AssessmentSubmissions" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="CourseCategory">
+    <Key>
+      <PropertyRef Name="CourseCategoryID" />
+    </Key>
+    <Property Name="CourseCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Courses" Relationship="Self.FK_dbo_Courses_dbo_CourseCategories_CourseCategoryID" FromRole="CourseCategories" ToRole="Courses" />
+  </EntityType>
+  <EntityType Name="Cours">
+    <Key>
+      <PropertyRef Name="CourseCode" />
+    </Key>
+    <Property Name="CourseCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CourseTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CourseCategoryID" Type="Int32" Nullable="false" />
+    <Property Name="CourseImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CourseCategory" Relationship="Self.FK_dbo_Courses_dbo_CourseCategories_CourseCategoryID" FromRole="Courses" ToRole="CourseCategories" />
+    <NavigationProperty Name="OfferedCourses" Relationship="Self.FK_dbo_OfferedCourses_dbo_Courses_Course_CourseCode" FromRole="Courses" ToRole="OfferedCourses" />
+  </EntityType>
+  <EntityType Name="IsAttempted">
+    <Key>
+      <PropertyRef Name="AttemptedID" />
+    </Key>
+    <Property Name="AttemptedID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="QuizID" Type="Int32" Nullable="false" />
+    <Property Name="AttemptedTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Quiz" Relationship="Self.FK_dbo_IsAttempteds_dbo_Quizs_QuizID" FromRole="IsAttempteds" ToRole="Quizs" />
+    <NavigationProperty Name="User" Relationship="Self.FK_dbo_IsAttempteds_dbo_Users_Username" FromRole="IsAttempteds" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="LearnerEnroll">
+    <Key>
+      <PropertyRef Name="LearnerEnrollID" />
+    </Key>
+    <Property Name="LearnerEnrollID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EnrollDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CompletionDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
+    <Property Name="EnrolledLearnerID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EnrolledCourse_OfferedCourseID" Type="Int32" />
+    <Property Name="EnrolledLearner_Username" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="EnrolledCourseID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AssessmentEvaluations" Relationship="Self.FK_dbo_AssessmentEvaluations_dbo_LearnerEnrolls_LearnerEnrollID" FromRole="LearnerEnrolls" ToRole="AssessmentEvaluations" />
+    <NavigationProperty Name="OfferedCours" Relationship="Self.FK_dbo_LearnerEnrolls_dbo_OfferedCourses_CourseEnrolled_OfferedCourseID" FromRole="LearnerEnrolls" ToRole="OfferedCourses" />
+    <NavigationProperty Name="User" Relationship="Self.FK_dbo_LearnerEnrolls_dbo_Users_EnrolledLearner_Username" FromRole="LearnerEnrolls" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="LectureResource">
+    <Key>
+      <PropertyRef Name="LectureResourceID" />
+    </Key>
+    <Property Name="LectureResourceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ResourceType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LectureScheduleID" Type="Int32" Nullable="false" />
+    <Property Name="FilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="LectureSchedule" Relationship="Self.FK_dbo_LectureResources_dbo_LectureSchedules_LectureScheduleID" FromRole="LectureResources" ToRole="LectureSchedules" />
+  </EntityType>
+  <EntityType Name="LectureSchedule">
+    <Key>
+      <PropertyRef Name="LectureScheduleID" />
+    </Key>
+    <Property Name="LectureScheduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LectureDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LectureTime" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="StreamName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OfferedCourseID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="LectureResources" Relationship="Self.FK_dbo_LectureResources_dbo_LectureSchedules_LectureScheduleID" FromRole="LectureSchedules" ToRole="LectureResources" />
+    <NavigationProperty Name="OfferedCours" Relationship="Self.FK_dbo_LectureSchedules_dbo_OfferedCourses_OfferedCourseID" FromRole="LectureSchedules" ToRole="OfferedCourses" />
+  </EntityType>
+  <EntityType Name="OfferedCours">
+    <Key>
+      <PropertyRef Name="OfferedCourseID" />
+    </Key>
+    <Property Name="OfferedCourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StartingDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FinishDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreditHours" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Course_CourseCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="OfferdBy_Username" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="OfferedByID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LearnerCount" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Assessments" Relationship="Self.FK_dbo_Assessments_dbo_OfferedCourses_OfferedCourse_OfferedCourseID" FromRole="OfferedCourses" ToRole="Assessments" />
+    <NavigationProperty Name="Cours" Relationship="Self.FK_dbo_OfferedCourses_dbo_Courses_Course_CourseCode" FromRole="OfferedCourses" ToRole="Courses" />
+    <NavigationProperty Name="LearnerEnrolls" Relationship="Self.FK_dbo_LearnerEnrolls_dbo_OfferedCourses_CourseEnrolled_OfferedCourseID" FromRole="OfferedCourses" ToRole="LearnerEnrolls" />
+    <NavigationProperty Name="LectureSchedules" Relationship="Self.FK_dbo_LectureSchedules_dbo_OfferedCourses_OfferedCourseID" FromRole="OfferedCourses" ToRole="LectureSchedules" />
+    <NavigationProperty Name="User" Relationship="Self.FK_dbo_OfferedCourses_dbo_Users_OfferdBy_Username" FromRole="OfferedCourses" ToRole="Users" />
+    <NavigationProperty Name="QuizAttempts" Relationship="Self.FK_dbo_QuizAttempts_dbo_OfferedCourses_OfferedCourseID" FromRole="OfferedCourses" ToRole="QuizAttempts" />
+    <Property Name="Rule_RuleID" Type="Int32" />
+    <Property Name="Rule_RuleID1" Type="Int32" />
+    <NavigationProperty Name="Rule" Relationship="omlateDBModel.FK_dbo_OfferedCourses_dbo_Rules_Rule_RuleID" FromRole="OfferedCours" ToRole="Rule" />
+    <NavigationProperty Name="Rule1" Relationship="omlateDBModel.FK_dbo_OfferedCourses_dbo_Rules_Rule_RuleID1" FromRole="OfferedCours" ToRole="Rule" />
+  </EntityType>
+  <EntityType Name="QuizAttempt">
+    <Key>
+      <PropertyRef Name="AttemptID" />
+    </Key>
+    <Property Name="AttemptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Answers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Marks" Type="Double" Nullable="false" />
+    <Property Name="AttemptTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LearnerID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="OfferedCourseID" Type="Int32" Nullable="false" />
+    <Property Name="QuizID" Type="Int32" Nullable="false" />
+    <Property Name="Learner_Username" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="OfferedCours" Relationship="Self.FK_dbo_QuizAttempts_dbo_OfferedCourses_OfferedCourseID" FromRole="QuizAttempts" ToRole="OfferedCourses" />
+    <NavigationProperty Name="Quiz" Relationship="Self.FK_dbo_QuizAttempts_dbo_Quizs_QuizID" FromRole="QuizAttempts" ToRole="Quizs" />
+    <NavigationProperty Name="User" Relationship="Self.FK_dbo_QuizAttempts_dbo_Users_Learner_Username" FromRole="QuizAttempts" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="QuizQuestion">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="QuestionStatement" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Options" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="QuizID" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Quiz" Relationship="Self.FK_dbo_QuizQuestions_dbo_Quizs_QuizID" FromRole="QuizQuestions" ToRole="Quizs" />
+  </EntityType>
+  <EntityType Name="Quiz">
+    <Key>
+      <PropertyRef Name="QuizID" />
+    </Key>
+    <Property Name="QuizID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InstructorID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="offeredCourseID" Type="Int32" Nullable="false" />
+    <Property Name="QuizTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Deadline" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Duration" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="IsAttempteds" Relationship="Self.FK_dbo_IsAttempteds_dbo_Quizs_QuizID" FromRole="Quizs" ToRole="IsAttempteds" />
+    <NavigationProperty Name="QuizAttempts" Relationship="Self.FK_dbo_QuizAttempts_dbo_Quizs_QuizID" FromRole="Quizs" ToRole="QuizAttempts" />
+    <NavigationProperty Name="QuizQuestions" Relationship="Self.FK_dbo_QuizQuestions_dbo_Quizs_QuizID" FromRole="Quizs" ToRole="QuizQuestions" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PhoneNo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="Field" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AssessmentSubmissions" Relationship="Self.FK_dbo_AssessmentSubmissions_dbo_Users_Learner_Username" FromRole="Users" ToRole="AssessmentSubmissions" />
+    <NavigationProperty Name="IsAttempteds" Relationship="Self.FK_dbo_IsAttempteds_dbo_Users_Username" FromRole="Users" ToRole="IsAttempteds" />
+    <NavigationProperty Name="LearnerEnrolls" Relationship="Self.FK_dbo_LearnerEnrolls_dbo_Users_EnrolledLearner_Username" FromRole="Users" ToRole="LearnerEnrolls" />
+    <NavigationProperty Name="OfferedCourses" Relationship="Self.FK_dbo_OfferedCourses_dbo_Users_OfferdBy_Username" FromRole="Users" ToRole="OfferedCourses" />
+    <NavigationProperty Name="QuizAttempts" Relationship="Self.FK_dbo_QuizAttempts_dbo_Users_Learner_Username" FromRole="Users" ToRole="QuizAttempts" />
+  </EntityType>
+  <Association Name="FK_dbo_AssessmentEvaluations_dbo_Assessments_AssessmentID">
+    <End Role="Assessments" Type="Self.Assessment" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AssessmentEvaluations" Type="Self.AssessmentEvaluation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Assessments">
+        <PropertyRef Name="AssessmentID" />
+      </Principal>
+      <Dependent Role="AssessmentEvaluations">
+        <PropertyRef Name="AssessmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AssessmentEvaluations_dbo_LearnerEnrolls_LearnerEnrollID">
+    <End Role="LearnerEnrolls" Type="Self.LearnerEnroll" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AssessmentEvaluations" Type="Self.AssessmentEvaluation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LearnerEnrolls">
+        <PropertyRef Name="LearnerEnrollID" />
+      </Principal>
+      <Dependent Role="AssessmentEvaluations">
+        <PropertyRef Name="LearnerEnrollID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Assessments_dbo_OfferedCourses_OfferedCourse_OfferedCourseID">
+    <End Role="OfferedCourses" Type="Self.OfferedCours" Multiplicity="0..1" />
+    <End Role="Assessments" Type="Self.Assessment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OfferedCourses">
+        <PropertyRef Name="OfferedCourseID" />
+      </Principal>
+      <Dependent Role="Assessments">
+        <PropertyRef Name="OfferedCourse_OfferedCourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AssessmentSubmissions_dbo_Assessments_AssessmentId">
+    <End Role="Assessments" Type="Self.Assessment" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AssessmentSubmissions" Type="Self.AssessmentSubmission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Assessments">
+        <PropertyRef Name="AssessmentID" />
+      </Principal>
+      <Dependent Role="AssessmentSubmissions">
+        <PropertyRef Name="AssessmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AssessmentSubmissions_dbo_Users_Learner_Username">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="AssessmentSubmissions" Type="Self.AssessmentSubmission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="AssessmentSubmissions">
+        <PropertyRef Name="Learner_Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Courses_dbo_CourseCategories_CourseCategoryID">
+    <End Role="CourseCategories" Type="Self.CourseCategory" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Courses" Type="Self.Cours" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CourseCategories">
+        <PropertyRef Name="CourseCategoryID" />
+      </Principal>
+      <Dependent Role="Courses">
+        <PropertyRef Name="CourseCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_OfferedCourses_dbo_Courses_Course_CourseCode">
+    <End Role="Courses" Type="Self.Cours" Multiplicity="0..1" />
+    <End Role="OfferedCourses" Type="Self.OfferedCours" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="CourseCode" />
+      </Principal>
+      <Dependent Role="OfferedCourses">
+        <PropertyRef Name="Course_CourseCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_IsAttempteds_dbo_Quizs_QuizID">
+    <End Role="Quizs" Type="Self.Quiz" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IsAttempteds" Type="Self.IsAttempted" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quizs">
+        <PropertyRef Name="QuizID" />
+      </Principal>
+      <Dependent Role="IsAttempteds">
+        <PropertyRef Name="QuizID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_IsAttempteds_dbo_Users_Username">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="IsAttempteds" Type="Self.IsAttempted" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="IsAttempteds">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_LearnerEnrolls_dbo_OfferedCourses_CourseEnrolled_OfferedCourseID">
+    <End Role="OfferedCourses" Type="Self.OfferedCours" Multiplicity="0..1" />
+    <End Role="LearnerEnrolls" Type="Self.LearnerEnroll" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OfferedCourses">
+        <PropertyRef Name="OfferedCourseID" />
+      </Principal>
+      <Dependent Role="LearnerEnrolls">
+        <PropertyRef Name="EnrolledCourse_OfferedCourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_LearnerEnrolls_dbo_Users_EnrolledLearner_Username">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="LearnerEnrolls" Type="Self.LearnerEnroll" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="LearnerEnrolls">
+        <PropertyRef Name="EnrolledLearner_Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_LectureResources_dbo_LectureSchedules_LectureScheduleID">
+    <End Role="LectureSchedules" Type="Self.LectureSchedule" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="LectureResources" Type="Self.LectureResource" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LectureSchedules">
+        <PropertyRef Name="LectureScheduleID" />
+      </Principal>
+      <Dependent Role="LectureResources">
+        <PropertyRef Name="LectureScheduleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_LectureSchedules_dbo_OfferedCourses_OfferedCourseID">
+    <End Role="OfferedCourses" Type="Self.OfferedCours" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="LectureSchedules" Type="Self.LectureSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OfferedCourses">
+        <PropertyRef Name="OfferedCourseID" />
+      </Principal>
+      <Dependent Role="LectureSchedules">
+        <PropertyRef Name="OfferedCourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_OfferedCourses_dbo_Users_OfferdBy_Username">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="OfferedCourses" Type="Self.OfferedCours" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="OfferedCourses">
+        <PropertyRef Name="OfferdBy_Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_QuizAttempts_dbo_OfferedCourses_OfferedCourseID">
+    <End Role="OfferedCourses" Type="Self.OfferedCours" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="QuizAttempts" Type="Self.QuizAttempt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OfferedCourses">
+        <PropertyRef Name="OfferedCourseID" />
+      </Principal>
+      <Dependent Role="QuizAttempts">
+        <PropertyRef Name="OfferedCourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_QuizAttempts_dbo_Quizs_QuizID">
+    <End Role="Quizs" Type="Self.Quiz" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="QuizAttempts" Type="Self.QuizAttempt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quizs">
+        <PropertyRef Name="QuizID" />
+      </Principal>
+      <Dependent Role="QuizAttempts">
+        <PropertyRef Name="QuizID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_QuizAttempts_dbo_Users_Learner_Username">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="QuizAttempts" Type="Self.QuizAttempt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="QuizAttempts">
+        <PropertyRef Name="Learner_Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_QuizQuestions_dbo_Quizs_QuizID">
+    <End Role="Quizs" Type="Self.Quiz" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="QuizQuestions" Type="Self.QuizQuestion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quizs">
+        <PropertyRef Name="QuizID" />
+      </Principal>
+      <Dependent Role="QuizQuestions">
+        <PropertyRef Name="QuizID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ExistingData" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+    <EntitySet Name="AssessmentEvaluations" EntityType="Self.AssessmentEvaluation" />
+    <EntitySet Name="Assessments" EntityType="Self.Assessment" />
+    <EntitySet Name="AssessmentSubmissions" EntityType="Self.AssessmentSubmission" />
+    <EntitySet Name="CourseCategories" EntityType="Self.CourseCategory" />
+    <EntitySet Name="Courses" EntityType="Self.Cours" />
+    <EntitySet Name="IsAttempteds" EntityType="Self.IsAttempted" />
+    <EntitySet Name="LearnerEnrolls" EntityType="Self.LearnerEnroll" />
+    <EntitySet Name="LectureResources" EntityType="Self.LectureResource" />
+    <EntitySet Name="LectureSchedules" EntityType="Self.LectureSchedule" />
+    <EntitySet Name="OfferedCourses" EntityType="Self.OfferedCours" />
+    <EntitySet Name="QuizAttempts" EntityType="Self.QuizAttempt" />
+    <EntitySet Name="QuizQuestions" EntityType="Self.QuizQuestion" />
+    <EntitySet Name="Quizs" EntityType="Self.Quiz" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_dbo_AssessmentEvaluations_dbo_Assessments_AssessmentID" Association="Self.FK_dbo_AssessmentEvaluations_dbo_Assessments_AssessmentID">
+      <End Role="Assessments" EntitySet="Assessments" />
+      <End Role="AssessmentEvaluations" EntitySet="AssessmentEvaluations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AssessmentEvaluations_dbo_LearnerEnrolls_LearnerEnrollID" Association="Self.FK_dbo_AssessmentEvaluations_dbo_LearnerEnrolls_LearnerEnrollID">
+      <End Role="LearnerEnrolls" EntitySet="LearnerEnrolls" />
+      <End Role="AssessmentEvaluations" EntitySet="AssessmentEvaluations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Assessments_dbo_OfferedCourses_OfferedCourse_OfferedCourseID" Association="Self.FK_dbo_Assessments_dbo_OfferedCourses_OfferedCourse_OfferedCourseID">
+      <End Role="OfferedCourses" EntitySet="OfferedCourses" />
+      <End Role="Assessments" EntitySet="Assessments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AssessmentSubmissions_dbo_Assessments_AssessmentId" Association="Self.FK_dbo_AssessmentSubmissions_dbo_Assessments_AssessmentId">
+      <End Role="Assessments" EntitySet="Assessments" />
+      <End Role="AssessmentSubmissions" EntitySet="AssessmentSubmissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AssessmentSubmissions_dbo_Users_Learner_Username" Association="Self.FK_dbo_AssessmentSubmissions_dbo_Users_Learner_Username">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="AssessmentSubmissions" EntitySet="AssessmentSubmissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Courses_dbo_CourseCategories_CourseCategoryID" Association="Self.FK_dbo_Courses_dbo_CourseCategories_CourseCategoryID">
+      <End Role="CourseCategories" EntitySet="CourseCategories" />
+      <End Role="Courses" EntitySet="Courses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_OfferedCourses_dbo_Courses_Course_CourseCode" Association="Self.FK_dbo_OfferedCourses_dbo_Courses_Course_CourseCode">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="OfferedCourses" EntitySet="OfferedCourses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_IsAttempteds_dbo_Quizs_QuizID" Association="Self.FK_dbo_IsAttempteds_dbo_Quizs_QuizID">
+      <End Role="Quizs" EntitySet="Quizs" />
+      <End Role="IsAttempteds" EntitySet="IsAttempteds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_IsAttempteds_dbo_Users_Username" Association="Self.FK_dbo_IsAttempteds_dbo_Users_Username">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="IsAttempteds" EntitySet="IsAttempteds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_LearnerEnrolls_dbo_OfferedCourses_CourseEnrolled_OfferedCourseID" Association="Self.FK_dbo_LearnerEnrolls_dbo_OfferedCourses_CourseEnrolled_OfferedCourseID">
+      <End Role="OfferedCourses" EntitySet="OfferedCourses" />
+      <End Role="LearnerEnrolls" EntitySet="LearnerEnrolls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_LearnerEnrolls_dbo_Users_EnrolledLearner_Username" Association="Self.FK_dbo_LearnerEnrolls_dbo_Users_EnrolledLearner_Username">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="LearnerEnrolls" EntitySet="LearnerEnrolls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_LectureResources_dbo_LectureSchedules_LectureScheduleID" Association="Self.FK_dbo_LectureResources_dbo_LectureSchedules_LectureScheduleID">
+      <End Role="LectureSchedules" EntitySet="LectureSchedules" />
+      <End Role="LectureResources" EntitySet="LectureResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_LectureSchedules_dbo_OfferedCourses_OfferedCourseID" Association="Self.FK_dbo_LectureSchedules_dbo_OfferedCourses_OfferedCourseID">
+      <End Role="OfferedCourses" EntitySet="OfferedCourses" />
+      <End Role="LectureSchedules" EntitySet="LectureSchedules" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_OfferedCourses_dbo_Users_OfferdBy_Username" Association="Self.FK_dbo_OfferedCourses_dbo_Users_OfferdBy_Username">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="OfferedCourses" EntitySet="OfferedCourses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_QuizAttempts_dbo_OfferedCourses_OfferedCourseID" Association="Self.FK_dbo_QuizAttempts_dbo_OfferedCourses_OfferedCourseID">
+      <End Role="OfferedCourses" EntitySet="OfferedCourses" />
+      <End Role="QuizAttempts" EntitySet="QuizAttempts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_QuizAttempts_dbo_Quizs_QuizID" Association="Self.FK_dbo_QuizAttempts_dbo_Quizs_QuizID">
+      <End Role="Quizs" EntitySet="Quizs" />
+      <End Role="QuizAttempts" EntitySet="QuizAttempts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_QuizAttempts_dbo_Users_Learner_Username" Association="Self.FK_dbo_QuizAttempts_dbo_Users_Learner_Username">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="QuizAttempts" EntitySet="QuizAttempts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_QuizQuestions_dbo_Quizs_QuizID" Association="Self.FK_dbo_QuizQuestions_dbo_Quizs_QuizID">
+      <End Role="Quizs" EntitySet="Quizs" />
+      <End Role="QuizQuestions" EntitySet="QuizQuestions" />
+    </AssociationSet>
+    <EntitySet Name="Extras" EntityType="omlateDBModel.Extra" />
+    <EntitySet Name="Rules" EntityType="omlateDBModel.Rule" />
+    <AssociationSet Name="FK_dbo_OfferedCourses_dbo_Rules_Rule_RuleID" Association="omlateDBModel.FK_dbo_OfferedCourses_dbo_Rules_Rule_RuleID">
+      <End Role="Rule" EntitySet="Rules" />
+      <End Role="OfferedCours" EntitySet="OfferedCourses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_OfferedCourses_dbo_Rules_Rule_RuleID1" Association="omlateDBModel.FK_dbo_OfferedCourses_dbo_Rules_Rule_RuleID1">
+      <End Role="Rule" EntitySet="Rules" />
+      <End Role="OfferedCours" EntitySet="OfferedCourses" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Extra">
+    <Key>
+      <PropertyRef Name="ExtraID" />
+    </Key>
+    <Property Name="ExtraID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="Rule">
+    <Key>
+      <PropertyRef Name="RuleID" />
+    </Key>
+    <Property Name="RuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Confidence" Type="Double" Nullable="false" />
+    <NavigationProperty Name="OfferedCourses" Relationship="omlateDBModel.FK_dbo_OfferedCourses_dbo_Rules_Rule_RuleID" FromRole="Rule" ToRole="OfferedCours" />
+    <NavigationProperty Name="OfferedCourses1" Relationship="omlateDBModel.FK_dbo_OfferedCourses_dbo_Rules_Rule_RuleID1" FromRole="Rule" ToRole="OfferedCours" />
+  </EntityType>
+  <Association Name="FK_dbo_OfferedCourses_dbo_Rules_Rule_RuleID">
+    <End Type="omlateDBModel.Rule" Role="Rule" Multiplicity="0..1" />
+    <End Type="omlateDBModel.OfferedCours" Role="OfferedCours" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rule">
+        <PropertyRef Name="RuleID" />
+      </Principal>
+      <Dependent Role="OfferedCours">
+        <PropertyRef Name="Rule_RuleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_OfferedCourses_dbo_Rules_Rule_RuleID1">
+    <End Type="omlateDBModel.Rule" Role="Rule" Multiplicity="0..1" />
+    <End Type="omlateDBModel.OfferedCours" Role="OfferedCours" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rule">
+        <PropertyRef Name="RuleID" />
+      </Principal>
+      <Dependent Role="OfferedCours">
+        <PropertyRef Name="Rule_RuleID1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -33,8 +33,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +60,77 @@
   <ItemGroup>
     <Compile Include="Item.cs" />
     <Compile Include="ItemsSet.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Assessment.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AssessmentEvaluation.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AssessmentSubmission.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cours.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CourseCategory.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExistingDataFromWeb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExistingDataFromWeb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExistingDataFromWeb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExistingDataFromWeb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExistingDataFromWeb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extra.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IsAttempted.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LearnerEnroll.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LectureResource.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LectureSchedule.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OfferedCours.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OmlateSuggestion.cs" />
+    <Compile Include="Models\Quiz.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuizAttempt.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuizQuestion.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Rule.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>ExistingDataFromWeb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rule.cs" />
@@ -52,6 +138,29 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="Models\ExistingDataFromWeb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ExistingDataFromWeb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\ExistingDataFromWeb.edmx.diagram">
+      <DependentUpon>ExistingDataFromWeb.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\ExistingDataFromWeb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ExistingDataFromWeb.edmx</DependentUpon>
+      <LastGenOutput>ExistingDataFromWeb.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ExistingDataFromWeb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ExistingDataFromWeb.edmx</DependentUpon>
+      <LastGenOutput>ExistingDataFromWeb.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

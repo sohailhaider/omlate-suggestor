@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="omlateDBModelStoreContainer" CdmEntityContainer="ExistingData">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="omlateDBModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssessmentEvaluations">
+      <EntityTypeMapping TypeName="omlateDBModel.AssessmentEvaluation">
+        <MappingFragment StoreEntitySet="AssessmentEvaluations">
+          <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
+          <ScalarProperty Name="LearnerEnrollID" ColumnName="LearnerEnrollID" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+          <ScalarProperty Name="EvaluationDate" ColumnName="EvaluationDate" />
+          <ScalarProperty Name="File" ColumnName="File" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Assessments">
+      <EntityTypeMapping TypeName="omlateDBModel.Assessment">
+        <MappingFragment StoreEntitySet="Assessments">
+          <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
+          <ScalarProperty Name="AssessmentTitle" ColumnName="AssessmentTitle" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="OfferedCourse_OfferedCourseID" ColumnName="OfferedCourse_OfferedCourseID" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssessmentSubmissions">
+      <EntityTypeMapping TypeName="omlateDBModel.AssessmentSubmission">
+        <MappingFragment StoreEntitySet="AssessmentSubmissions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AssessmentId" ColumnName="AssessmentId" />
+          <ScalarProperty Name="LearnerId" ColumnName="LearnerId" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="SubmissionTime" ColumnName="SubmissionTime" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="Learner_Username" ColumnName="Learner_Username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseCategories">
+      <EntityTypeMapping TypeName="omlateDBModel.CourseCategory">
+        <MappingFragment StoreEntitySet="CourseCategories">
+          <ScalarProperty Name="CourseCategoryID" ColumnName="CourseCategoryID" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="omlateDBModel.Cours">
+        <MappingFragment StoreEntitySet="Courses">
+          <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+          <ScalarProperty Name="CourseTitle" ColumnName="CourseTitle" />
+          <ScalarProperty Name="CourseCategoryID" ColumnName="CourseCategoryID" />
+          <ScalarProperty Name="CourseImage" ColumnName="CourseImage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IsAttempteds">
+      <EntityTypeMapping TypeName="omlateDBModel.IsAttempted">
+        <MappingFragment StoreEntitySet="IsAttempteds">
+          <ScalarProperty Name="AttemptedID" ColumnName="AttemptedID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="QuizID" ColumnName="QuizID" />
+          <ScalarProperty Name="AttemptedTime" ColumnName="AttemptedTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LearnerEnrolls">
+      <EntityTypeMapping TypeName="omlateDBModel.LearnerEnroll">
+        <MappingFragment StoreEntitySet="LearnerEnrolls">
+          <ScalarProperty Name="LearnerEnrollID" ColumnName="LearnerEnrollID" />
+          <ScalarProperty Name="EnrollDate" ColumnName="EnrollDate" />
+          <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EnrolledLearnerID" ColumnName="EnrolledLearnerID" />
+          <ScalarProperty Name="EnrolledCourse_OfferedCourseID" ColumnName="EnrolledCourse_OfferedCourseID" />
+          <ScalarProperty Name="EnrolledLearner_Username" ColumnName="EnrolledLearner_Username" />
+          <ScalarProperty Name="EnrolledCourseID" ColumnName="EnrolledCourseID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LectureResources">
+      <EntityTypeMapping TypeName="omlateDBModel.LectureResource">
+        <MappingFragment StoreEntitySet="LectureResources">
+          <ScalarProperty Name="LectureResourceID" ColumnName="LectureResourceID" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="ResourceType" ColumnName="ResourceType" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="LectureScheduleID" ColumnName="LectureScheduleID" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LectureSchedules">
+      <EntityTypeMapping TypeName="omlateDBModel.LectureSchedule">
+        <MappingFragment StoreEntitySet="LectureSchedules">
+          <ScalarProperty Name="LectureScheduleID" ColumnName="LectureScheduleID" />
+          <ScalarProperty Name="LectureDate" ColumnName="LectureDate" />
+          <ScalarProperty Name="LectureTime" ColumnName="LectureTime" />
+          <ScalarProperty Name="StreamName" ColumnName="StreamName" />
+          <ScalarProperty Name="OfferedCourseID" ColumnName="OfferedCourseID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OfferedCourses">
+      <EntityTypeMapping TypeName="omlateDBModel.OfferedCours">
+        <MappingFragment StoreEntitySet="OfferedCourses">
+          <ScalarProperty Name="Rule_RuleID1" ColumnName="Rule_RuleID1" />
+          <ScalarProperty Name="Rule_RuleID" ColumnName="Rule_RuleID" />
+          <ScalarProperty Name="OfferedCourseID" ColumnName="OfferedCourseID" />
+          <ScalarProperty Name="StartingDate" ColumnName="StartingDate" />
+          <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+          <ScalarProperty Name="CreditHours" ColumnName="CreditHours" />
+          <ScalarProperty Name="Course_CourseCode" ColumnName="Course_CourseCode" />
+          <ScalarProperty Name="OfferdBy_Username" ColumnName="OfferdBy_Username" />
+          <ScalarProperty Name="OfferedByID" ColumnName="OfferedByID" />
+          <ScalarProperty Name="LearnerCount" ColumnName="LearnerCount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuizAttempts">
+      <EntityTypeMapping TypeName="omlateDBModel.QuizAttempt">
+        <MappingFragment StoreEntitySet="QuizAttempts">
+          <ScalarProperty Name="AttemptID" ColumnName="AttemptID" />
+          <ScalarProperty Name="Answers" ColumnName="Answers" />
+          <ScalarProperty Name="Marks" ColumnName="Marks" />
+          <ScalarProperty Name="AttemptTime" ColumnName="AttemptTime" />
+          <ScalarProperty Name="LearnerID" ColumnName="LearnerID" />
+          <ScalarProperty Name="OfferedCourseID" ColumnName="OfferedCourseID" />
+          <ScalarProperty Name="QuizID" ColumnName="QuizID" />
+          <ScalarProperty Name="Learner_Username" ColumnName="Learner_Username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuizQuestions">
+      <EntityTypeMapping TypeName="omlateDBModel.QuizQuestion">
+        <MappingFragment StoreEntitySet="QuizQuestions">
+          <ScalarProperty Name="QuestionStatement" ColumnName="QuestionStatement" />
+          <ScalarProperty Name="Options" ColumnName="Options" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="QuizID" ColumnName="QuizID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Quizs">
+      <EntityTypeMapping TypeName="omlateDBModel.Quiz">
+        <MappingFragment StoreEntitySet="Quizs">
+          <ScalarProperty Name="QuizID" ColumnName="QuizID" />
+          <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+          <ScalarProperty Name="offeredCourseID" ColumnName="offeredCourseID" />
+          <ScalarProperty Name="QuizTitle" ColumnName="QuizTitle" />
+          <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="omlateDBModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="omlateDBModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Field" ColumnName="Field" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Extras">
+      <EntityTypeMapping TypeName="omlateDBModel.Extra">
+        <MappingFragment StoreEntitySet="Extras">
+          <ScalarProperty Name="ExtraID" ColumnName="ExtraID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rules">
+      <EntityTypeMapping TypeName="omlateDBModel.Rule">
+        <MappingFragment StoreEntitySet="Rules">
+          <ScalarProperty Name="Confidence" ColumnName="Confidence" />
+          <ScalarProperty Name="RuleID" ColumnName="RuleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
