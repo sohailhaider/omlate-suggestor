@@ -19,6 +19,9 @@ namespace AprioriSelf
             List<LearnerEnroll> enrolls;
             int courseId;
 
+            double support = 5;
+            double confidence = 20;
+
             var students = existing.Users.Where(s => s.Type == "learner").ToList();
             foreach (User current in students)
             {
@@ -41,9 +44,6 @@ namespace AprioriSelf
                 }
                 //Console.WriteLine("\t" + (i + 1) + ". " + users.ElementAt(i).Email + " (" + users.ElementAt(i).Type + ")");
             }
-
-            double support = 20;
-            double confidence = 30;
             List<Transaction> AllTransactions = AllEnrollments;
             List<Item> AllItems = AllEnrolledCourse;
             List<Rule> RuleList = new List<Rule>();
